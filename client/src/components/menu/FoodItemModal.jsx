@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { Plus, Minus, Check, AlertCircle, ShoppingBag, Info } from 'lucide-react';
 import Modal from '../common/Modal';
 import Button from '../common/Button';
@@ -14,32 +14,22 @@ export default function FoodItemModal({
   orderingEnabled = true,
 }) {
   const [quantity, setQuantity] = useState(1);
-  const [selectedModifiers, setSelectedModifiers] = useState({});
   const [prepNotes, setPrepNotes] = useState('');
   const [validationError, setValidationError] = useState('');
 
-  // Reset local state when a new item is opened
-  useEffect(() => {
-    if (!item) return;
-
-    setQuantity(1);
-    setPrepNotes('');
-    setValidationError('');
-
-    // Pre-populate defaults for required single-select modifiers if available
+  // Initialize defaults for required single-select modifiers
+  const [selectedModifiers, setSelectedModifiers] = useState(() => {
+    if (!item?.modifierGroups) return {};
     const initialMods = {};
-    if (item.modifierGroups) {
-      item.modifierGroups.forEach((group) => {
-        if (group.required && group.options.length > 0) {
-          // Default to first option
-          initialMods[group.id] = [group.options[0]];
-        } else {
-          initialMods[group.id] = [];
-        }
-      });
-    }
-    setSelectedModifiers(initialMods);
-  }, [item]);
+    item.modifierGroups.forEach((group) => {
+      if (group.required && group.options.length > 0) {
+        initialMods[group.id] = [group.options[0]];
+      } else {
+        initialMods[group.id] = [];
+      }
+    });
+    return initialMods;
+  });
 
   // Flatten selected modifiers list
   const flatSelectedModifiers = useMemo(() => {

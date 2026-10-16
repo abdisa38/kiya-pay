@@ -15,7 +15,7 @@ function RestaurantCartScope() {
   const { restaurantSlug = 'buna-bite' } = useParams();
 
   return (
-    <CartProvider currentRestaurantSlug={restaurantSlug}>
+    <CartProvider key={restaurantSlug} currentRestaurantSlug={restaurantSlug}>
       <Outlet />
     </CartProvider>
   );

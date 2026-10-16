@@ -33,8 +33,6 @@ export default function MenuPage() {
 
   useEffect(() => {
     let isMounted = true;
-    setLoading(true);
-    setError(null);
 
     restaurantService
       .getRestaurantBySlug(restaurantSlug)
@@ -247,6 +245,7 @@ export default function MenuPage() {
 
       {/* Item Detail / Customization Modal */}
       <FoodItemModal
+        key={selectedItemForModal ? selectedItemForModal.id : 'none'}
         isOpen={Boolean(selectedItemForModal)}
         onClose={() => setSelectedItemForModal(null)}
         item={selectedItemForModal}

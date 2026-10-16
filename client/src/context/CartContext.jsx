@@ -1,12 +1,12 @@
-import { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
+import { createContext, useState, useEffect, useMemo, useCallback } from 'react';
 import { calculateItemTotal } from '../utils/currency';
 
-const CartContext = createContext(null);
+export const CartContext = createContext(null);
 
 export function CartProvider({ children, currentRestaurantSlug }) {
-  const storageKey = useMemo(() => {
-    return currentRestaurantSlug ? `gebeta_cart_${currentRestaurantSlug}` : 'gebeta_cart_default';
-  }, [currentRestaurantSlug]);
+  const storageKey = currentRestaurantSlug
+    ? `gebeta_cart_${currentRestaurantSlug}`
+    : 'gebeta_cart_default';
 
   // Load initial cart safely from LocalStorage
   const [items, setItems] = useState(() => {
@@ -34,21 +34,6 @@ export function CartProvider({ children, currentRestaurantSlug }) {
       // LocalStorage full or disabled
     }
   }, [items, storageKey]);
-
-  // Handle switching restaurants: reload the appropriate cart
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(storageKey);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        setItems(Array.isArray(parsed) ? parsed : []);
-      } else {
-        setItems([]);
-      }
-    } catch {
-      setItems([]);
-    }
-  }, [storageKey]);
 
   // Dismiss notification toast automatically
   useEffect(() => {
@@ -182,10 +167,4 @@ export function CartProvider({ children, currentRestaurantSlug }) {
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
 
-export function useCart() {
-  const context = useContext(CartContext);
-  if (!context) {
-    throw new Error('useCart must be used within a CartProvider');
-  }
-  return context;
-}
+export { useCart } from './useCart';

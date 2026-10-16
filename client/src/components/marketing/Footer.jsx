@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { QrCode, Heart } from 'lucide-react';
 import './marketing.css';
 
+const CURRENT_YEAR = new Date().getFullYear();
+
 export default function Footer() {
   return (
     <footer className="marketing-footer">
@@ -39,7 +41,7 @@ export default function Footer() {
       </div>
 
       <div className="container footer-bottom-bar">
-        <p>© {new Date().getFullYear()} GebetaQR. Commercial Hospitality Technology. All rights reserved.</p>
+        <p>© {CURRENT_YEAR} GebetaQR. Commercial Hospitality Technology. All rights reserved.</p>
         <p className="footer-credit">
           Crafted with care for Ethiopian dining hospitality <Heart size={14} color="#C69234" style={{ display: 'inline', verticalAlign: 'middle' }} />
         </p>

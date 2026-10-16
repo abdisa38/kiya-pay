@@ -26,7 +26,8 @@ export default function CartPage() {
   const navigate = useNavigate();
 
   const urlTable = searchParams.get('t') || searchParams.get('table') || '';
-  const [tableNumber, setTableNumber] = useState(urlTable || 'Table 04');
+  const [editedTable, setEditedTable] = useState(null);
+  const tableNumber = editedTable !== null ? editedTable : (urlTable || 'Table 04');
   const [customerNotes, setCustomerNotes] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
@@ -47,13 +48,6 @@ export default function CartPage() {
         setLoadingRestaurant(false);
       });
   }, [restaurantSlug]);
-
-  // Keep table number in sync if url parameter changes
-  useEffect(() => {
-    if (urlTable) {
-      setTableNumber(urlTable);
-    }
-  }, [urlTable]);
 
   const handleOrderSubmit = async (e) => {
     e.preventDefault();
@@ -152,7 +146,7 @@ export default function CartPage() {
               type="text"
               className="table-confirm-input"
               value={tableNumber}
-              onChange={(e) => setTableNumber(e.target.value)}
+              onChange={(e) => setEditedTable(e.target.value)}
               placeholder="e.g. Table 04"
               required
               aria-label="Table number"
