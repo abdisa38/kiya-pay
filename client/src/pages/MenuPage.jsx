@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useParams, useSearchParams, Link } from 'react-router-dom';
 import { SearchX, ArrowLeft, CheckCircle2 } from 'lucide-react';
 import { restaurantService } from '../services/restaurantService';
-import { useCart } from '../context/CartContext';
+import { useCart } from '../context/useCart';
 import RestaurantHeader from '../components/menu/RestaurantHeader';
 import SearchInput from '../components/menu/SearchInput';
 import CategoryNav from '../components/menu/CategoryNav';

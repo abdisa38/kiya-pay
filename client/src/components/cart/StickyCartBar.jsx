@@ -1,6 +1,6 @@
 import { ShoppingBag, ArrowRight } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useCart } from '../../context/CartContext';
+import { useCart } from '../../context/useCart';
 import { formatETB } from '../../utils/currency';
 import './cart.css';
 
