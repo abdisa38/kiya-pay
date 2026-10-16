@@ -9,7 +9,7 @@ import {
   FileText,
   CheckCircle,
 } from 'lucide-react';
-import { useCart } from '../context/CartContext';
+import { useCart } from '../context/useCart';
 import { restaurantService } from '../services/restaurantService';
 import { orderService } from '../services/orderService';
 import { formatETB } from '../utils/currency';

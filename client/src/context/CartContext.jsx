@@ -1,7 +1,6 @@
-import { createContext, useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { calculateItemTotal } from '../utils/currency';
-
-export const CartContext = createContext(null);
+import { CartContext } from './cartContextDefinition';
 
 export function CartProvider({ children, currentRestaurantSlug }) {
   const storageKey = currentRestaurantSlug
@@ -167,4 +166,4 @@ export function CartProvider({ children, currentRestaurantSlug }) {
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
 
-export { useCart } from './useCart';
+export default CartProvider;
